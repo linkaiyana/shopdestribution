@@ -1,13 +1,21 @@
 module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
   extends: [
     'plugin:vue/essential',
-    'airbnb-base',
+    '@vue/airbnb',
   ],
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
   plugins: [
     'vue',
   ],
   rules: {
     'linebreak-style': 'off',
     'no-console': 'off',
+    'max-len': ['error', { code: 300 }],
   },
 };

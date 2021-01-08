@@ -14,11 +14,15 @@
           label="密码"
           placeholder="请输入密码" />
       </Form>
-      <Button class="login-btn"
-              :loading="loading"
-              loading-type="spinner"
-              loading-text="登录中..."
-              block round type="info">登录</Button>
+      <Button
+        class="login-btn"
+        :loading="loading"
+        loading-type="spinner"
+        loading-text="登录中..."
+        block round type="info"
+        @click="login">
+        登录
+      </Button>
     </div>
     <div class="register" @click="toRegister">
       没有账号？立即注册
@@ -46,6 +50,10 @@ export default {
     Button,
   },
   methods: {
+    login() {
+      console.log('login');
+      this.$router.push('/home');
+    },
     toRegister() {
       this.$router.push('/register');
     },

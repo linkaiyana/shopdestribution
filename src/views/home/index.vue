@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    主页
   </div>
 </template>
 
@@ -13,7 +14,4 @@ export default {
 };
 </script>
 <style>
-.box {
-  width: 1rem;
-}
 </style>
