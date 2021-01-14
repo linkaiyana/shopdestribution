@@ -17,5 +17,7 @@ module.exports = {
     'linebreak-style': 'off',
     'no-console': 'off',
     'max-len': ['error', { code: 300 }],
+    'import/prefer-default-export': 'off',
+    'no-param-reassign': 'off',
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div id="register-box">
-    <div class="title">手机号注册</div>
+    <h2 class="title">手机号注册</h2>
     <Form class="register-form">
       <div class="wrap">
       <Field
@@ -101,6 +101,7 @@ import {
   Uploader, Form, Field, RadioGroup, Radio, Checkbox, Popup, Button,
 } from 'vant';
 import { validatePhone, validateEmail, validatePassword } from '../../utils/validate';
+import { register } from './api';
 
 export default {
   name: 'index',
@@ -181,8 +182,16 @@ export default {
         this.$toast.fail('请填写所有必填信息');
         return;
       }
+      if (!this.fileList || this.fileList === [] || this.fileList.length === 0) {
+        this.$toast.fail('请上传您的头像');
+        return;
+      }
       if (!this.checked) {
         this.$toast.fail('请阅读并勾选用户协议');
+        return;
+      }
+      if (this.userInfo.password !== this.userInfo.cpassword) {
+        this.$toast.fail('两次输入的密码不一致');
         return;
       }
       // 校验数据合法性
@@ -191,8 +200,24 @@ export default {
       }
       // 发送请求
       this.btnLoading = true;
-      this.btnLoading = false;
-      this.$router.go(-1);
+      const data = {
+        userPhone: this.userInfo.phoneNumber,
+        password: this.userInfo.password,
+        nickName: this.userInfo.nickName,
+        email: this.userInfo.email,
+        gender: this.userInfo.gender,
+        avatar: this.fileList[0].content,
+      };
+      register(data).then((res) => {
+        if (res.status === 200) {
+          this.$toast.success(`${res.msg}，即将前往登录页面`);
+          setTimeout(() => {
+            this.$router.go(-1);
+          }, 2000);
+        }
+      }).finally(() => {
+        this.btnLoading = false;
+      });
     },
     // 重置
     reset() {
@@ -211,7 +236,7 @@ export default {
 <style lang="less" scoped>
 #register-box {
   font-family: 楷体;
-  padding: 100px 20px 0;
+  padding: 60px 20px;
   > .title {
     font-size: 20px;
   }
