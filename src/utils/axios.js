@@ -5,7 +5,7 @@ const axiosIns = axios.create({
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
   },
-  baseURL: 'http://192.168.1.21:3000',
+  baseURL: 'http://localhost:3000',
 });
 const jwToken = 'jwToken';
 // 请求拦截

@@ -33,6 +33,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #reset-box {
+  width: 100%;
+  height: 100%;
   font-family: 楷体;
   padding: 60px 20px;
   > .title {

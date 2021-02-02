@@ -3,20 +3,21 @@
     <h2 class="title">手机号注册</h2>
     <Form class="register-form">
       <div class="wrap">
-      <Field
-        name="nickName"
-        v-model="userInfo.nickName"
-        placeholder="输入您的昵称"
-        :rules="[{ required: true }]"
-        label="昵称">
-      </Field>
-      <Uploader
-        class="upload"
-        v-model="fileList"
-        preview-size="70px"
-        :before-read="beforeRead"
-        :after-read="afterRead"
-        :max-count="1" />
+        <Field
+          name="nickName"
+          v-model="userInfo.nickName"
+          placeholder="输入您的昵称"
+          :rules="[{ required: true }]"
+          label="昵称"
+        >
+        </Field>
+        <Uploader
+          class="upload"
+          v-model="fileList"
+          preview-size="70px"
+          :before-read="beforeRead"
+          :after-read="afterRead"
+          :max-count="1"/>
       </div>
       <Field
         name="email"
@@ -29,7 +30,7 @@
         <template #input>
           <RadioGroup v-model="userInfo.gender" direction="horizontal">
             <Radio name="1">男</Radio>
-            <Radio name="2">女</Radio>
+            <Radio name="0">女</Radio>
           </RadioGroup>
         </template>
       </Field>
@@ -65,15 +66,12 @@
         icon-size="15px"
         shape="square">
       </Checkbox>
-    <span style="color: #ccc">我已阅读并同意</span>
-    <span style="color: #7090f8" @click="showAgreement">《用户协议》</span>
+      <span>我已阅读并同意</span>
+      <span @click="showAgreement">《用户协议》</span>
     </div>
 
     <div class="btns">
-      <Button
-        color="linear-gradient(to right, #97c4f7, #0a6dee)"
-        :loading="btnLoading"
-        @click="register">
+      <Button class="linear-btn" :loading="btnLoading" @click="register">
         注册
       </Button>
       <Button
@@ -91,16 +89,27 @@
       closeable
       position="bottom"
       :style="{ height: '70%' }">
-        <div v-html="message"></div>
+      <div v-html="message"></div>
     </Popup>
   </div>
 </template>
 
 <script>
 import {
-  Uploader, Form, Field, RadioGroup, Radio, Checkbox, Popup, Button,
+  Uploader,
+  Form,
+  Field,
+  RadioGroup,
+  Radio,
+  Checkbox,
+  Popup,
+  Button,
 } from 'vant';
-import { validatePhone, validateEmail, validatePassword } from '../../utils/validate';
+import {
+  validatePhone,
+  validateEmail,
+  validatePassword,
+} from '../../utils/validate';
 import { register } from './api';
 
 export default {
@@ -135,7 +144,14 @@ export default {
     };
   },
   components: {
-    Uploader, Form, Field, RadioGroup, Radio, Checkbox, Popup, Button,
+    Uploader,
+    Form,
+    Field,
+    RadioGroup,
+    Radio,
+    Checkbox,
+    Popup,
+    Button,
   },
   methods: {
     beforeRead(e) {
@@ -178,11 +194,20 @@ export default {
     // 注册
     register() {
       // 校验数据
-      if (!this.userInfo.nickName || !this.userInfo.email || !this.userInfo.password || !this.userInfo.cpassword) {
+      if (
+        !this.userInfo.nickName
+        || !this.userInfo.email
+        || !this.userInfo.password
+        || !this.userInfo.cpassword
+      ) {
         this.$toast.fail('请填写所有必填信息');
         return;
       }
-      if (!this.fileList || this.fileList === [] || this.fileList.length === 0) {
+      if (
+        !this.fileList
+        || this.fileList === []
+        || this.fileList.length === 0
+      ) {
         this.$toast.fail('请上传您的头像');
         return;
       }
@@ -208,16 +233,18 @@ export default {
         gender: this.userInfo.gender,
         avatar: this.fileList[0].content,
       };
-      register(data).then((res) => {
-        if (res.status === 200) {
-          this.$toast.success(`${res.msg}，即将前往登录页面`);
-          setTimeout(() => {
-            this.$router.go(-1);
-          }, 2000);
-        }
-      }).finally(() => {
-        this.btnLoading = false;
-      });
+      register(data)
+        .then((res) => {
+          if (res.status === 200) {
+            this.$toast.success(`${res.msg}，即将前往登录页面`);
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 2000);
+          }
+        })
+        .finally(() => {
+          this.btnLoading = false;
+        });
     },
     // 重置
     reset() {
@@ -235,6 +262,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #register-box {
+  width: 100%;
+  height: 100%;
   font-family: 楷体;
   padding: 60px 20px;
   > .title {
@@ -261,10 +290,16 @@ export default {
         border-radius: 5px;
         overflow: hidden;
         border: 1px solid #ccc;
-        .van-icon{
+        .van-icon {
           border: none;
         }
       }
+    }
+    > span:first-of-type {
+      color: #ccc;
+    }
+    > span:last-of-type {
+      color: @theme-color;
     }
   }
   > .btns {

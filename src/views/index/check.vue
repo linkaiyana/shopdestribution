@@ -19,7 +19,8 @@
     <div class="btn">
       <Button
       class="next"
-      round type="primary"
+      round
+      type="info"
       size="small"
       @click="next"
       :loading="btnLoading">

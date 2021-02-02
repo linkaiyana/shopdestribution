@@ -1,7 +1,7 @@
 <template>
   <div id="setSafe-box">
     <h3 class="title">安全中心</h3>
-    <p>请设置两个安全问题用于找回密码：</p>
+    <p>您的账号很不安全，请设置两个安全问题用于找回密码（问题以“？”结尾）：</p>
     <br>
     <div class="msg">
       <Field
@@ -67,10 +67,17 @@ export default {
   components: {
     Field, Button,
   },
+  created() {
+  },
   methods: {
     setSafe() {
       if (!this.safe.problemA || !this.safe.problemB) {
         this.$toast.fail('请输入您的问题');
+        return;
+      }
+      const reg = /(.+)[?？]$/g;
+      if (!(reg.test(this.safe.problemA) && this.safe.problemB)) {
+        this.$toast.fail('问题必须已？结尾');
         return;
       }
       if (!this.safe.answerA || !this.safe.answerB) {
@@ -97,8 +104,6 @@ export default {
             setTimeout(() => {
               this.$router.push('/home');
             }, 2000);
-          } else {
-            this.$toast.fail(res.msg);
           }
         });
       }).catch(() => {
@@ -113,6 +118,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #setSafe-box {
+  width: 100%;
+  height: 100%;
   font-family: 楷体;
   padding: 60px 20px;
   > .title {

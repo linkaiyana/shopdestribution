@@ -19,5 +19,7 @@ module.exports = {
     'max-len': ['error', { code: 300 }],
     'import/prefer-default-export': 'off',
     'no-param-reassign': 'off',
+    'global-require': 'off',
+    'no-undef': 'off',
   },
 };

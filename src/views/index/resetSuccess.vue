@@ -1,10 +1,15 @@
 <template>
   <div id="writeInfo-box">
-    <h2 class="title">密码重置成功</h2>
+    <h2 class="title">
+      恭喜您!!
+      <br/>
+      密码重置成功，请保管好您的密码
+    </h2>
     <div class="btn">
       <Button
       class="next"
-      round type="primary"
+      round
+      type="info"
       size="small"
       @click="next"
       :loading="btnLoading">
@@ -65,6 +70,7 @@ export default {
     font-weight: 100;
     font-size: 18px;
     margin-top: 20px;
+    line-height: 30px;
   }
   > .btn {
     margin-top: 20px;
