@@ -49,7 +49,7 @@
 
 <script>
 import { Field, Button, Dialog } from 'vant';
-import { setSafe } from './api';
+import { setSafe } from 'api/index';
 
 export default {
   name: 'setSafe',
@@ -92,7 +92,7 @@ export default {
       }).then(() => {
         // 确认
         const params = {
-          userPhone: JSON.parse(localStorage.getItem('userInfo')).userPhone,
+          uid: JSON.parse(localStorage.getItem('userInfo')).id,
           problemA: this.safe.problemA,
           answerA: this.safe.answerA,
           problemB: this.safe.problemB,

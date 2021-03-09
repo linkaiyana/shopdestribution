@@ -1,88 +1,89 @@
 <template>
   <div id="register-box">
     <h2 class="title">手机号注册</h2>
-    <Form class="register-form">
+    <van-form class="register-form">
       <div class="wrap">
-        <Field
+        <van-field
           name="nickName"
           v-model="userInfo.nickName"
           placeholder="输入您的昵称"
           :rules="[{ required: true }]"
           label="昵称"
         >
-        </Field>
-        <Uploader
+        </van-field>
+        <m-upload size="small" :multiple="false" :list="fileList" :num="1"></m-upload>
+        <!-- <Uploader
           class="upload"
           v-model="fileList"
           preview-size="70px"
           :before-read="beforeRead"
           :after-read="afterRead"
-          :max-count="1"/>
+          :max-count="1"/> -->
       </div>
-      <Field
+      <van-field
         name="email"
         v-model="userInfo.email"
         placeholder="请填写邮箱地址"
         label="邮箱"
         :rules="[{ required: true }]">
-      </Field>
-      <Field name="radio" label="性别">
+      </van-field>
+      <van-field name="radio" label="性别">
         <template #input>
-          <RadioGroup v-model="userInfo.gender" direction="horizontal">
-            <Radio name="1">男</Radio>
-            <Radio name="0">女</Radio>
-          </RadioGroup>
+          <van-radio-group v-model="userInfo.gender" direction="horizontal">
+            <van-radio name="1">男</van-radio>
+            <van-radio name="0">女</van-radio>
+          </van-radio-group>
         </template>
-      </Field>
-      <Field
+      </van-field>
+      <van-field
         name="phone"
         label="手机号码"
         v-model="userInfo.phoneNumber"
         :maxlength="11"
         placeholder="请填写手机号码"
         :rules="[{ required: true }]">
-      </Field>
-      <Field
+      </van-field>
+      <van-field
         name="password"
         label="密码"
         type="password"
         v-model="userInfo.password"
         placeholder="请填写密码"
         :rules="[{ required: true }]">
-      </Field>
-      <Field
+      </van-field>
+      <van-field
         name="confirmPwd"
         label="确认密码"
         type="password"
         v-model="userInfo.cpassword"
         placeholder="请再次输入密码"
         :rules="[{ required: true }]">
-      </Field>
-    </Form>
+      </van-field>
+    </van-form>
     <div class="check-wrap">
-      <Checkbox
+      <van-checkbox
         class="checkbox"
         v-model="checked"
         icon-size="15px"
         shape="square">
-      </Checkbox>
+      </van-checkbox>
       <span>我已阅读并同意</span>
       <span @click="showAgreement">《用户协议》</span>
     </div>
 
     <div class="btns">
-      <Button class="linear-btn" :loading="btnLoading" @click="register">
+      <van-button class="linear-btn" :loading="btnLoading" @click="register">
         注册
-      </Button>
-      <Button
+      </van-button>
+      <van-button
         color="linear-gradient(to right, #bdc2c2, #979899)"
         @click="reset">
         重置
-      </Button>
+      </van-button>
     </div>
 
     <!-- 弹出层 -->
-    <Popup
+    <van-popup
       class="model"
       v-model="isAgreementShow"
       round
@@ -90,13 +91,13 @@
       position="bottom"
       :style="{ height: '70%' }">
       <div v-html="message"></div>
-    </Popup>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import {
-  Uploader,
+  // Uploader,
   Form,
   Field,
   RadioGroup,
@@ -105,12 +106,13 @@ import {
   Popup,
   Button,
 } from 'vant';
+import mUpload from 'components/mUpload/index.vue';
+import { register } from 'api/index';
 import {
   validatePhone,
   validateEmail,
   validatePassword,
 } from '../../utils/validate';
-import { register } from './api';
 
 export default {
   name: 'index',
@@ -144,14 +146,15 @@ export default {
     };
   },
   components: {
-    Uploader,
-    Form,
-    Field,
-    RadioGroup,
-    Radio,
-    Checkbox,
-    Popup,
-    Button,
+    // Uploader,
+    [Form.name]: Form,
+    [Field.name]: Field,
+    [RadioGroup.name]: RadioGroup,
+    [Radio.name]: Radio,
+    [Checkbox.name]: Checkbox,
+    [Popup.name]: Popup,
+    [Button.name]: Button,
+    mUpload,
   },
   methods: {
     beforeRead(e) {
@@ -231,14 +234,14 @@ export default {
         nickName: this.userInfo.nickName,
         email: this.userInfo.email,
         gender: this.userInfo.gender,
-        avatar: this.fileList[0].content,
       };
-      register(data)
+      this.fileList[0].append('data', JSON.stringify(data));
+      register(this.fileList[0])
         .then((res) => {
           if (res.status === 200) {
             this.$toast.success(`${res.msg}，即将前往登录页面`);
             setTimeout(() => {
-              this.$router.go(-1);
+              this.$router.push('/login');
             }, 2000);
           }
         })
@@ -274,7 +277,7 @@ export default {
       display: flex;
       align-items: flex-end;
       > .upload {
-        margin-bottom: -10px;
+        margin-right: 20px;
       }
     }
   }

@@ -32,13 +32,13 @@
 
 <script>
 import { Field, Button } from 'vant';
-import { getProb, verifyAnswer } from './api';
+import { getProb, verifyAnswer } from 'api/index';
 
 export default {
   name: 'check',
   data() {
     return {
-      username: '',
+      id: null,
       problemA: '',
       problemB: '',
       answerA: '',
@@ -57,7 +57,7 @@ export default {
         return;
       }
       const params = {
-        username: this.username,
+        uid: this.id,
         answerA: this.answerA,
         answerB: this.answerB,
       };
@@ -72,7 +72,7 @@ export default {
             this.$router.push({
               path: '/reset/resetConfirm',
               query: {
-                username: this.username,
+                id: this.id,
               },
             });
           }, 2000);
@@ -90,9 +90,9 @@ export default {
       });
     }
     this.$emit('updateActive', this.active);
-    this.username = this.$route.query.username;
+    this.id = this.$route.query.id;
     const params = {
-      username: this.username,
+      uid: this.id,
     };
     getProb(params).then((res) => {
       this.problemA = res.problemA;

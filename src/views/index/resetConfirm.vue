@@ -29,13 +29,13 @@
 <script>
 import { Field, Button } from 'vant';
 import { validatePassword } from '@/utils/validate';
-import { resetPwd } from './api';
+import { resetPwd } from 'api/index';
 
 export default {
   name: 'resetConfirm',
   data() {
     return {
-      username: '',
+      id: '',
       active: 2,
       btnLoading: false,
       newPassword: '',
@@ -57,7 +57,7 @@ export default {
       }
       console.log('验证通过');
       const params = {
-        username: this.username,
+        uid: this.id,
         password: this.newPassword,
       };
       this.btnLoading = true;
@@ -90,7 +90,7 @@ export default {
       });
     }
     this.$emit('updateActive', this.active);
-    this.username = this.$route.query.username;
+    this.id = this.$route.query.id;
   },
 };
 </script>

@@ -55,7 +55,7 @@
 <script>
 
 import { Form, Field, Button } from 'vant';
-import { login } from './api';
+import { login } from 'api/index';
 
 export default {
   name: 'login',
@@ -97,6 +97,7 @@ export default {
           localStorage.setItem('userInfo', JSON.stringify(res.user));
           // 存储token
           localStorage.setItem('token', res.token);
+          this.$bus.$emit('userInfoChange');
           this.$toast.success('登录成功');
           if (Number(res.user.isSafe) === 0) {
             setTimeout(() => {

@@ -24,7 +24,7 @@
 
 <script>
 import { Field, Button } from 'vant';
-import { hasUser } from './api';
+import { hasUser } from 'api/index';
 
 export default {
   name: 'writeInfo',
@@ -60,7 +60,7 @@ export default {
           this.$router.push({
             path: '/reset/check',
             query: {
-              username: this.back.username,
+              id: res.id,
             },
           });
         }
