@@ -120,7 +120,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .order-detail {
+  width: 100%;
   > .content {
+    width: 100%;
       > .address {
         display: flex;
         align-items: center;
@@ -147,7 +149,7 @@ export default {
           }
         }
         > .address-msg {
-          // width: 210px;
+          width: 280px;
           height: 100%;
           display: flex;
           flex-direction: column;
@@ -254,6 +256,7 @@ export default {
       background: linear-gradient(90deg, rgb(253, 124, 4) 0%, red 100%);
       border: 1px solid transparent;
       border-radius: 15px;
+      margin-right: 20px;
       &.isComplete {
         background: #999;
       }

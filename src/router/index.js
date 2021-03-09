@@ -25,6 +25,7 @@ const AddGoods = () => import('@/views/manage/addGoods.vue');
 const SetGoods = () => import('@/views/manage/setGoods.vue');
 const SetBanner = () => import('@/views/manage/setBanner.vue');
 const SetHot = () => import('@/views/manage/setHot.vue');
+const OrdersList = () => import('@/views/manage/ordersList.vue');
 const SetOrders = () => import('@/views/manage/setOrders.vue');
 
 const PayMent = () => import('@/views/payment/payment.vue');
@@ -102,6 +103,11 @@ const routes = [
     path: '/setHot',
     name: 'setHot',
     component: SetHot,
+  },
+  {
+    path: '/ordersList',
+    name: 'ordersList',
+    component: OrdersList,
   },
   {
     path: '/setOrders',

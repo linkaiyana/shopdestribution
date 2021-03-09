@@ -35,6 +35,7 @@
     </div>
     <div class="seize"></div>
     <div class="bottom-tab">
+      <div class="dis" v-if="!!Number(goodsInfo.is_del)">该商品已下架</div>
       <div class="collect" @click="collect">
         <img v-if="!this.isCollected" src="~assets/imgs/collect.png" alt="">
         <img v-else src="~assets/imgs/collect-selected.png" alt="">
@@ -215,9 +216,23 @@ export default {
   > .bottom-tab {
     position: fixed;
     bottom: 0px;
+    left: 0;
+    right: 0;
     padding-bottom: 10px;
     display: flex;
     background: #fff;
+    > .dis {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      background: rgba(0, 0, 0, .7);
+      color: #fff;
+      text-align: center;
+      line-height: 44px;
+    }
     > .collect {
       padding: 0 15px;
       img {

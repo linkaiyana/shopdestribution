@@ -69,7 +69,7 @@ export default {
       }
     },
     toSetOrders() {
-      this.$router.push('/setOrders');
+      this.$router.push('/ordersList');
     },
   },
 };

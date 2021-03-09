@@ -122,3 +122,44 @@ export function changeHotState(data) {
     data,
   });
 }
+
+// 获取所有订单
+export function getAllShopOrders() {
+  return axiosIns({
+    url: '/info/getAllShopOrders',
+    method: 'post',
+  });
+}
+
+// 获取所有待发货订单
+export function getAllShopUnDeliverOrders() {
+  return axiosIns({
+    url: '/info/getAllShopUnDeliverOrders',
+    method: 'post',
+  });
+}
+
+// 获取所有已发货订单
+export function getAllShopDeliverOrders() {
+  return axiosIns({
+    url: '/info/getAllShopDeliverOrders',
+    method: 'post',
+  });
+}
+
+// 获取所有已送达订单
+export function getAllShopArriveOrders() {
+  return axiosIns({
+    url: '/info/getAllShopArriveOrders',
+    method: 'post',
+  });
+}
+
+// 修改订单状态
+export function changeStatus(data) {
+  return axiosIns({
+    url: '/manage/changeStatus',
+    method: 'post',
+    data,
+  });
+}

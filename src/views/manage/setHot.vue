@@ -120,7 +120,7 @@ export default {
 .set-hot {
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #e1e3fa 0%, #faf9f9 100%);
+  background: linear-gradient(180deg, #b9ebff 0%, #faf9f9 100%);
   /deep/ .van-tabs__nav {
     background: #b9ebff;
   }

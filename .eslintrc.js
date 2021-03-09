@@ -23,5 +23,6 @@ module.exports = {
     'no-undef': 'off',
     'no-plusplus': 'off',
     'prefer-destructuring': 'off',
+    'no-nested-ternary': 'off',
   },
 };
