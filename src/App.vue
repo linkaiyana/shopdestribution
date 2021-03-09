@@ -1,8 +1,79 @@
 <template>
   <div id="app">
     <router-view/>
+    <div v-show="isTabbarShow" class="fix-bottom"></div>
+    <van-tabbar v-show="isTabbarShow" v-model="active" fixed :placeholder ="true" :route="true">
+      <template v-for="item in tabList">
+        <van-tabbar-item v-if="item.isShow" :key="item.name" :icon="item.icon" :to="item.path">{{item.name}}</van-tabbar-item>
+      </template>
+    </van-tabbar>
   </div>
 </template>
+
+<script>
+import { Tabbar, TabbarItem } from 'vant';
+
+export default {
+  data() {
+    return {
+      active: 0,
+      // 是否管理员
+      isAdmin: 0,
+      isTabbarShow: false,
+      tabList: [{
+        name: '主页',
+        path: '/home',
+        icon: 'wap-home',
+        isShow: true,
+      }, {
+        name: '管理',
+        path: '/manage',
+        icon: 'cluster',
+        isShow: false,
+      }, {
+        name: '购物车',
+        path: '/shopCart',
+        icon: 'shopping-cart',
+        isShow: true,
+      }, {
+        name: '我的',
+        path: '/mine',
+        icon: 'manager',
+        isShow: true,
+      }],
+    };
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        console.log(to);
+        this.isTabbarShow = Boolean(this.tabList.find((item) => item.path === to.path));
+      },
+    },
+  },
+  components: {
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem,
+  },
+  created() {
+    // 监听存储变化，登录后触发
+    this.$bus.$on('userInfoChange', () => {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (userInfo.adminFlag) {
+        this.isAdmin = 1;
+        this.tabList[1].isShow = this.isAdmin === 1;
+      }
+    });
+    // 读取存储，刷新触发
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo && userInfo.adminFlag) {
+      this.isAdmin = 1;
+      this.tabList[1].isShow = this.isAdmin === 1;
+    }
+  },
+};
+</script>
 
 <style lang="less">
 html, body {
@@ -17,6 +88,9 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.fix-bottom {
+  height: 50px;
 }
 
 // // 自定义info按钮颜色

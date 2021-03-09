@@ -1,22 +1,25 @@
 <template>
   <div>
-    <NavBar
+    <van-nav-bar
       :fixed="fixed"
       :placeholder="placeholder"
       :title="title"
+      :class="{bg: typeof bg !== 'string' && bg}"
+      z-index="999"
+      :style="{background: typeof bg === 'string' ? bg : ''}"
       @click-left="onClickLeft"
       @click-right="onClickRight">
       <template #left>
-        <slot name="leftIcon">
-          <Icon name="search" size="22" />
+        <slot name="leftIcon" v-if="isShowLeft">
+          <van-icon name="arrow-left" size="22" />
         </slot>
       </template>
-      <template #right>
+      <template #right v-if="isShowRight">
         <slot name="rightIcon">
-          <Icon name="search" size="22" />
+          <van-icon name="search" size="22" />
         </slot>
       </template>
-    </NavBar>
+    </van-nav-bar>
   </div>
 </template>
 
@@ -36,11 +39,24 @@ export default {
     },
     placeholder: {
       type: Boolean,
+      default: true,
+    },
+    isShowLeft: {
+      type: Boolean,
+      default: false,
+    },
+    isShowRight: {
+      type: Boolean,
+      default: false,
+    },
+    bg: {
+      type: [Boolean, String],
       default: false,
     },
   },
   components: {
-    NavBar, Icon,
+    [NavBar.name]: NavBar,
+    [Icon.name]: Icon,
   },
   methods: {
     onClickLeft() {
@@ -52,3 +68,20 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+.bg {
+  /deep/ .van-nav-bar {
+    background: @theme-color!important;
+  }
+  /deep/ .van-icon {
+    color: #fff;
+  }
+  /deep/ .van-nav-bar__title {
+    color: #fff;
+    font-weight: 700;
+  }
+}
+/deep/ .van-nav-bar {
+  background: #b9ebff;
+}
+</style>

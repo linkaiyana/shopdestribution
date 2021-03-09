@@ -21,5 +21,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'global-require': 'off',
     'no-undef': 'off',
+    'no-plusplus': 'off',
+    'prefer-destructuring': 'off',
   },
 };

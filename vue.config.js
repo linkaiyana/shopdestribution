@@ -38,6 +38,7 @@ module.exports = {
       .set('views', resolve('./src/views'))
       .set('components', resolve('./src/components'))
       .set('utils', resolve('./src/utils'))
-      .set('common', resolve('./src/common'));
+      .set('common', resolve('./src/common'))
+      .set('api', resolve('./src/api'));
   },
 };
